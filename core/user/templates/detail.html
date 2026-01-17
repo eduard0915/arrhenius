@@ -1,0 +1,150 @@
+{% extends 'body.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">{{ entity }}</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="mb-0">Usuario</label>
+                                    <p class="form-control-static mt-0">{{ object.username }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="mb-0">Cédula</label>
+                                    <p class="form-control-static mt-0">{{ object.cedula|default:"N/A" }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="mb-0">Cargo</label>
+                                    <p class="form-control-static mt-0">{{ object.cargo|default:"Sin cargo" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="mb-0">Nombre</label>
+                                    <p class="form-control-static mt-0">{{ object.first_name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="mb-0">Apellido</label>
+                                    <p class="form-control-static mt-0">{{ object.last_name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="mb-0">Email Corporativo</label>
+                                    <p class="form-control-static mt-0">{{ object.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="mb-0">Email Personal</label>
+                                    <p class="form-control-static mt-0">{{ object.email_person|default:"N/A" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="mb-0">Celular</label>
+                                    <p class="form-control-static mt-0">{{ object.cellphone|default:"N/A" }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="mb-0">Dirección</label>
+                                    <p class="form-control-static mt-0">{{ object.address_user|default:"N/A" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="mb-0">Fecha de Nacimiento</label>
+                                    <p class="form-control-static mt-0">{{ object.date_birth|date:"d/m/Y"|default:"N/A" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'user:user_profile_update' object.slug %}" class="btn btn-warning">
+                        <i class="now-ui-icons ui-2_settings-90"></i> Editar Perfil
+                    </a>
+                    <a href="{% url 'user:change_password' %}" class="btn btn-success">
+                        <i class="now-ui-icons objects_key-25"></i> Cambiar Contraseña
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+                    <img src="{% static 'lib/now-ui-dashboard-pro-v1.6.0/assets/img/bg5.jpg' %}" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <a href="javascript:void(0)">
+                            <img class="avatar border-gray" src="{{ object.get_image }}" alt="...">
+                            <h5 class="title">{{ object.get_full_name }}</h5>
+                        </a>
+                        <p class="description">
+                            {{ object.cargo|default:"Sin cargo asignado" }}
+                        </p>
+                    </div>
+                    <p class="description text-center">
+                        {{ object.email }}
+                        <br>
+                        {% if object.email_person %}
+                            <small>{{ object.email_person }}</small>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    <div class="button-container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-6 ms-auto">
+                                <h5>{{ object.username }}
+                                    <br>
+                                    <small>Usuario</small>
+                                </h5>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-6 ms-auto me-auto">
+                                <h5>
+                                    {% if object.cellphone %}
+                                        {{ object.cellphone }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                    <br>
+                                    <small>Celular</small>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

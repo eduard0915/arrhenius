@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+    <body>
+    <div class="wrapper">
+    
+        {% include 'sidebar.html' %}
+
+        <div class="main-panel">
+
+            {% include 'header.html' %}
+
+            <div class="content">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+
+            {% include 'footer.html' %}
+        </div>
+    </div>
+
+    {#        <div class="modal fade" id="modal_template" role="dialog" aria-labelledby="modal" aria-hidden="true"></div>#}
+    {#        <div class="modal fade" id="delete" role="dialog" aria-labelledby="modal" aria-hidden="true"></div>#}
+    {#        <div class="modal fade" id="edition" role="dialog" aria-labelledby="modal" aria-hidden="true"></div>#}
+    
+    </body>
+
+{% endblock %}
+

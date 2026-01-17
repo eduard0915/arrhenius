@@ -1,0 +1,134 @@
+{% extends 'body.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">{{ entity }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-0">Código del Producto</label>
+                                <p class="form-control-static mt-0">{{ object.code_product }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-0">Tipo de Producto</label>
+                                <p class="form-control-static mt-0">{{ object.type_prod }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="mb-0">Descripción</label>
+                                <p class="form-control-static mt-0">{{ object.description_product }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-0">Forma Farmacéutica</label>
+                                <p class="form-control-static mt-0">{{ object.pharma_form|default:"N/A" }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-0">Nombre Comercial / Marca</label>
+                                <p class="form-control-static mt-0">{{ object.brand_product|default:"No aplica" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-0">Registro Sanitario</label>
+                                <p class="form-control-static mt-0">{{ object.sanitary_license }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Versión</label>
+                                <p class="form-control-static mt-0">{{ object.version }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Estado</label>
+                                <p class="form-control-static mt-0">
+                                    {% if object.product_enabled %}
+                                        <span class="badge badge-success">Activo</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">Inactivo</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ list_url }}" class="btn btn-default">
+                        <i class="now-ui-icons arrows-1_minimal-left"></i> Volver
+                    </a>
+                    <a href="{% url 'product:product_update' object.pk %}" class="btn btn-warning">
+                        <i class="now-ui-icons ui-2_settings-90"></i> Editar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+                    <img src="{{ object.get_image }}" alt="{{ object.code_product }}" style="width: 100%; height: 200px; object-fit: cover;">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <a href="javascript:void(0)">
+                            <img class="avatar" src="{{ object.get_image }}" alt="{{ object.code_product }}">
+                            <h5 class="title">{{ object.code_product }}</h5>
+                        </a>
+                        <p class="description">
+                            {{ object.type_prod }}
+                        </p>
+                    </div>
+                    <div class="card-description">
+                        <p class="text-center">{{ object.description_product }}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    <div class="button-container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-6 ms-auto">
+                                <h5>v{{ object.version }}
+                                    <br>
+                                    <small>Versión</small>
+                                </h5>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-6 ms-auto me-auto">
+                                <h5>
+                                    {% if object.product_enabled %}
+                                        <i class="now-ui-icons ui-1_check text-success"></i>
+                                    {% else %}
+                                        <i class="now-ui-icons ui-1_simple-remove text-danger"></i>
+                                    {% endif %}
+                                    <br>
+                                    <small>Estado</small>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

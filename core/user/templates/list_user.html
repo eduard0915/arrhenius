@@ -1,0 +1,32 @@
+{% extends 'list_one.html' %}
+{% load static %}
+
+{% block head_list %}
+    <script src="{% static 'list_user.js' %}"></script>
+{% endblock %}
+
+{% block columns %}
+    <tr>
+        <th class="text-center">Nombre Completo</th>
+        <th class="text-center">Usuario</th>
+        <th class="text-center">Cargo</th>
+        <th class="text-center">Roles</th>
+        <th class="text-center">Email</th>
+        <th class="text-center">Estado</th>
+        <th class="text-center">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block create %}
+    <a href="{{ create_url }}" class="btn btn-primary btn-round btn-icon float-end" style="margin-left: 10px;">
+        <i class="now-ui-icons ui-1_simple-add"></i>
+    </a>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

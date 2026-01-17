@@ -1,0 +1,130 @@
+{% load static %}
+
+<div class="sidebar" data-color="orange">
+  <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+  
+        Tip 2: you can also add an image using data-image tag
+        -->
+
+  <div class="logo">
+    <a href="#" class="simple-text logo-mini"> ST </a>
+
+    <a href="#" class="simple-text logo-normal"> Study STB </a>
+    <div class="navbar-minimize">
+      <button
+        id="minimizeSidebar"
+        class="btn btn-simple btn-icon btn-neutral btn-round"
+      >
+        <i
+          class="now-ui-icons text_align-center visible-on-sidebar-regular"
+        ></i>
+        <i
+          class="now-ui-icons design_bullet-list-67 visible-on-sidebar-mini"
+        ></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="sidebar-wrapper">
+    <div class="user">
+      <div class="photo">
+        <img
+          src="{{ request.user.get_image }}"
+          alt="{{ request.user.get_full_name }}"
+        />
+      </div>
+      <div class="info">
+        <a data-bs-toggle="collapse" href="#collapseExample" class="collapsed">
+          <span>
+            {{ request.user.get_full_name }}
+            <b class="caret"></b>
+          </span>
+        </a>
+        <div class="clearfix"></div>
+        <div class="collapse" id="collapseExample">
+          <ul class="nav">
+            <li>
+              <a href="{% url 'user:user_profile' request.user.slug %}">
+                <span class="sidebar-mini-icon">MP</span>
+                <span class="sidebar-normal">Mi Perfil</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'user:user_profile_update' request.user.slug %}">
+                <span class="sidebar-mini-icon">EP</span>
+                <span class="sidebar-normal">Editar Perfil</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'user:change_password' %}">
+                <span class="sidebar-mini-icon">CP</span>
+                <span class="sidebar-normal">Cambiar Contraseña</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <ul class="nav">
+      {% url 'product:product_list' as product_list %} 
+      {% url 'product:product_create' as product_create %}
+
+      <li
+        class="{% if product_list in request.path or product_create in request.path %}active{% endif %}"
+      >
+        <a href="{% url 'product:product_list' %}">
+          <i class="now-ui-icons design_app"></i>
+          <p>Productos</p>
+        </a>
+      </li>
+
+      {% url 'condition:condition_list' as condition_list %} 
+      {% url 'condition:condition_create' as condition_create %}
+      <li
+        class="{% if condition_list in request.path or condition_create in request.path %}active{% endif %}"
+      >
+        <a href="{% url 'condition:condition_list' %}">
+          <i class="now-ui-icons education_paper"></i>
+          <p>Condiciones</p>
+        </a>
+      </li>
+      {% url 'user:user_list' as user_list %} 
+      {% url 'user:user_create' as user_create %}
+
+      <li
+        class="{% if user_list in request.path or user_create in request.path or '/user/update/' in request.path or '/user/detail/' in request.path or '/user/update-password/' in request.path %}active{% endif %}"
+      >
+        <a data-bs-toggle="collapse" href="#config">
+          <i class="now-ui-icons ui-1_settings-gear-63"></i>
+          <p>
+            Configuración
+            <b class="caret"></b>
+          </p>
+        </a>
+
+        <div
+          class="{% if user_list in request.path or user_create in request.path or '/user/update/' in request.path or '/user/detail/' in request.path or '/user/update-password/' in request.path %}collapse show{% else %}collapse{% endif %}"
+          id="config"
+        >
+          <ul class="nav">
+            <li
+              class="{% if user_list in request.path or user_create in request.path or '/user/update/' in request.path or '/user/detail/' in request.path or '/user/update-password/' in request.path %}active{% endif %}"
+            >
+              <a href="{% url 'user:user_list' %}">
+                <span class="sidebar-mini-icon">US</span>
+                <span class="sidebar-normal">Usuarios</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="sidebar-mini-icon">C2</span>
+                <span class="sidebar-normal">Collapse 2</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

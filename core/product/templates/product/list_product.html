@@ -1,0 +1,20 @@
+{% extends 'list_one.html' %} {% load static %} {% block head_list %}
+<script src="{% static 'list_product.js' %}"></script>
+{% endblock %} {% block columns %}
+<tr>
+  <th class="text-center">Código</th>
+  <th class="text-center">Descripción</th>
+  <th class="text-center">Forma Farmacéutica</th>
+  <th class="text-center">Marca</th>
+  <th class="text-center">Estado</th>
+  <th class="text-center">Opciones</th>
+</tr>
+{% endblock %} {% block rows %} {% endblock %} {% block create %}
+<a
+  href="{{ create_url }}"
+  class="btn btn-primary btn-round btn-icon float-end"
+  style="margin-left: 10px"
+>
+  <i class="now-ui-icons ui-1_simple-add"></i>
+</a>
+{% endblock %} {% block javascript %} {% endblock %}

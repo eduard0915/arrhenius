@@ -1,0 +1,120 @@
+{% extends 'body.html' %}
+
+
+{% block content %}
+
+    <div class="col-md-{{ div }}">
+        <div class="card ">
+            <div class="card-header ">
+                <h4 class="card-title">{{ entity }}</h4>
+            </div>
+            <form enctype="multipart/form-data" method="post" action="" class="form-horizontal">
+                <div class="card-body ">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ action }}">
+                    {% for field in form.visible_fields %}
+                        {% if forloop.first %}
+                            <div class="row">
+                        {% endif %}
+                    <div class="{% if field.field.col_class %}{{ field.field.col_class }}{% else %}col-md-4{% endif %}">
+                        <div {% if field.name == 'photo' or field.name == 'companyLogo' or field.name == 'image_product' %}
+                            class="fileinput fileinput-new text-center" data-provides="fileinput"
+                        {% else %} class="form-group" {% endif %}>
+                            {% if field.name == 'photo' or field.name == 'companyLogo' or field.name == 'image_product' %}
+                                <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                <div>
+                                        <span class="btn btn-rose btn-round btn-file">
+                                            <span class="fileinput-new">Seleccionar imagen</span>
+                                            <span class="fileinput-exists">Cambiar</span>
+                                            {{ field }}
+                                        </span>
+                                    {% if field.help_text %}
+                                        <sub>*{{ field.help_text }}</sub>
+                                    {% endif %}
+                                    <a href="#" class="btn btn-danger btn-round fileinput-exists"
+                                       data-bs-dismiss="fileinput"><i class="fa fa-times"></i> Eliminar</a>
+                                </div>
+                            {% else %}
+                                <label for=id_{{ field.name }}>
+                                    {{ field.label }}{% if field.field.required %}*{% endif %}
+                                </label>
+                                {% if field.help_text %}
+                                    <sub>*{{ field.help_text }}</sub>
+                                {% endif %}
+                                {{ field }}
+                                </div>
+                                </div>
+                            {% endif %}
+                    {% if forloop.last %}
+                    {% elif forloop.counter|divisibleby:number_column %}
+                        </div>
+                        <div class="row">
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{ list_url }}" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-success" id="btnSubmit">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+        var isSubmitting = false;
+        
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            
+            // Prevenir múltiples envíos
+            if (isSubmitting) {
+                return false;
+            }
+            
+            isSubmitting = true;
+            var $btn = $('#btnSubmit');
+            var originalText = $btn.html();
+            
+            // Mostrar spinner y deshabilitar botón
+            $btn.prop("disabled", true);
+            $btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Guardando...');
+            
+            var parameters = new FormData(this);
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: parameters,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+            }).done(function (data) {
+                console.log(data);
+                if (!data.hasOwnProperty('error')) {
+                    location.href = '{{ list_url }}';
+                    return false;
+                }
+                message_error(data.error);
+                // Restaurar botón en caso de error
+                $btn.prop("disabled", false);
+                $btn.html(originalText);
+                isSubmitting = false;
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+                // Restaurar botón en caso de fallo
+                $btn.prop("disabled", false);
+                $btn.html(originalText);
+                isSubmitting = false;
+            }).always(function (data) {
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
+
+
+
+
+

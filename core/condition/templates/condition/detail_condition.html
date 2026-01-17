@@ -1,0 +1,95 @@
+{% extends 'body.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">{{ entity }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="mb-0">Zona</label>
+                                <p class="form-control-static mt-0">{{ object.zone_condition }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="mb-0">Descripción</label>
+                                <p class="form-control-static mt-0">{{ object.description_condition }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="mb-0">Tipo de Estudio</label>
+                                <p class="form-control-static mt-0">{{ object.study_type }}</p>
+                            </div>
+                        </div>
+                         <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="mb-0">Meses de Estudio</label>
+                                <p class="form-control-static mt-0">{{ object.period_minimum_time }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="mb-0">Versión</label>
+                                <p class="form-control-static mt-0">{{ object.version }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="mb-0">Estado</label>
+                                <p class="form-control-static mt-0">
+                                    {% if object.condition_enabled %}
+                                        <span class="badge badge-success">Activo</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">Inactivo</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Rango de Temperatura</label>
+                                <p class="form-control-static mt-0">
+                                    {{ object.temperture_inf }} - {{ object.temperture_sup }} °C
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Rango de Humedad Relativa</label>
+                                <p class="form-control-static mt-0">
+                                    {{ object.percent_humidity_inf }} - {{ object.percent_humidity_sup }} %
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="mb-0">Detalle de la Condición</label>
+                                <p class="form-control-static mt-0">{{ object.detail_condition|default:"Sin detalle" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ list_url }}" class="btn btn-default">
+                        <i class="now-ui-icons arrows-1_minimal-left"></i> Volver
+                    </a>
+                    <a href="{% url 'condition:condition_update' object.pk %}" class="btn btn-warning">
+                        <i class="now-ui-icons ui-2_settings-90"></i> Editar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
