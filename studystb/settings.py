@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'core.login',
     'core.product',
     'core.condition',
+    'core.protocol',
 ]
 
 MIDDLEWARE = [

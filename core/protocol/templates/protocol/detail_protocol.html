@@ -1,0 +1,99 @@
+{% extends 'body.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">{{ entity }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Código de Protocolo</label>
+                                <p class="form-control-static mt-0">{{ object.code_protocol }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Tipo de Estudio</label>
+                                <p class="form-control-static mt-0">{{ object.study_type }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Condición</label>
+                                <p class="form-control-static mt-0">{{ object.condition.zone_condition }} - {{ object.condition.description_condition }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label class="mb-0">Versión</label>
+                                <p class="form-control-static mt-0">{{ object.version }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="mb-0">Estado</label>
+                                <p class="form-control-static mt-0">
+                                    {% if object.enabled_protocol %}
+                                        <span class="badge badge-success">Habilitado</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">Inhabilitado</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="mb-0">Objetivo</label>
+                                <p class="form-control-static mt-0">{{ object.objective }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Preparado por</label>
+                                <p class="form-control-static mt-0">{{ object.prepared_by.get_full_name }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Fecha de Preparación</label>
+                                <p class="form-control-static mt-0">{{ object.date_prepared|date:"d/m/Y" }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Aprobado por</label>
+                                <p class="form-control-static mt-0">{{ object.approved_by.get_full_name }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="mb-0">Fecha de Aprobación</label>
+                                <p class="form-control-static mt-0">{{ object.date_approved|date:"d/m/Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ list_url }}" class="btn btn-default">
+                        <i class="now-ui-icons arrows-1_minimal-left"></i> Volver
+                    </a>
+                    <a href="{% url 'protocol:protocol_update' object.pk %}" class="btn btn-warning">
+                        <i class="now-ui-icons ui-2_settings-90"></i> Editar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
